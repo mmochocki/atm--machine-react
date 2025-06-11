@@ -10,6 +10,10 @@ $border-color: #ccc;
 $display-font: 'Roboto Mono', monospace;
 $main-font: 'Poppins', sans-serif;
 
+// New variables
+$button-bg: #e0e0e0;
+$button-active: #b0b0b0;
+
 // Mixins
 @mixin button-base {
   padding: 15px 30px;
@@ -64,34 +68,90 @@ $main-font: 'Poppins', sans-serif;
       letter-spacing: 2px;
       text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
     }
+
+    .input-amount {
+      margin-top: 15px;
+      font-size: 1.1em;
+      
+      .amount-display {
+        font-family: $display-font;
+        font-size: 1.8em;
+        margin-top: 5px;
+        font-weight: 700;
+      }
+    }
   }
 
-  .buttons {
+  .operation-buttons {
     display: flex;
     gap: 15px;
     justify-content: center;
-    padding: 10px;
+    margin-bottom: 20px;
 
     .atm-button {
       @include button-base;
+      flex: 1;
+      max-width: 150px;
+
+      &.active {
+        transform: scale(0.95);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
       &.deposit {
-        font-family: $display-font;
         background-color: $primary-color;
-        box-shadow: 0 2px 4px rgba($primary-color, 0.4);
-
-        &:hover {
-          background-color: darken($primary-color, 5%);
-        }
+        &:hover { background-color: darken($primary-color, 5%); }
       }
 
       &.withdraw {
-        font-family: $display-font;
         background-color: $danger-color;
-        box-shadow: 0 2px 4px rgba($danger-color, 0.4);
+        &:hover { background-color: darken($danger-color, 5%); }
+      }
+    }
+  }
+
+  .numpad {
+    background-color: darken($container-bg, 5%);
+    padding: 15px;
+    border-radius: 8px;
+    
+    .numpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .numpad-button {
+      font-family: $display-font;
+      font-size: 1.5em;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: $button-bg;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: darken($button-bg, 10%);
+      }
+
+      &:active {
+        transform: scale(0.95);
+        background-color: $button-active;
+      }
+
+      &.confirm {
+        width: 100%;
+        background-color: $primary-color;
+        color: white;
+        font-family: $main-font;
+        font-size: 1.2em;
+        padding: 15px;
+        margin-top: 10px;
 
         &:hover {
-          background-color: darken($danger-color, 5%);
+          background-color: darken($primary-color, 5%);
         }
       }
     }
