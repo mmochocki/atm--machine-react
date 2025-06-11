@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.scss';
 
 function App() {
+  const [balance, setBalance] = useState(1000); // Initial account balance: 1000 PLN
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="atm-container">
+      <div className="display">
+        <h2>Account Balance:</h2>
+        <div className="balance">{balance.toFixed(2)} $</div>
+      </div>
+
+      <div className="buttons">
+        <button
+          className="atm-button deposit"
+          onClick={() => setBalance(prev => prev + 100)}
         >
-          Learn React
-        </a>
-      </header>
+          Deposit 100$
+        </button>
+
+        <button
+          className="atm-button withdraw"
+          onClick={() => setBalance(prev => prev - 100)}
+        >
+          Withdraw 100$
+        </button>
+      </div>
     </div>
   );
 }
