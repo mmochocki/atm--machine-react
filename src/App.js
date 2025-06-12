@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import Display from './components/Display';
 import OperationButtons from './components/OperationButtons';
 import Numpad from './components/Numpad';
+import { getStoredBalance, setStoredBalance } from './utils/localStorage';
 import './App.scss';
 
 function App() {
-  const [balance, setBalance] = useState(1000); // Initial account balance: 1000$
+  const [balance, setBalance] = useState(getStoredBalance);
   const [amount, setAmount] = useState('');
   const [activeOperation, setActiveOperation] = useState(null); // 'deposit' or 'withdraw'
 
@@ -28,14 +29,14 @@ function App() {
     if (numAmount > 0) {
       if (activeOperation === 'withdraw') {
         if (numAmount <= balance) {
-          setBalance(prev => prev - numAmount);
+          setBalance(prev => setStoredBalance(prev - numAmount));
           setAmount('');
           setActiveOperation(null);
         } else {
           alert('Insufficient funds!');
         }
       } else if (activeOperation === 'deposit') {
-        setBalance(prev => prev + numAmount);
+        setBalance(prev => setStoredBalance(prev + numAmount));
         setAmount('');
         setActiveOperation(null);
       }
