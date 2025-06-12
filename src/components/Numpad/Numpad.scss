@@ -1,0 +1,48 @@
+@import '../../styles/variables';
+
+.numpad {
+  background-color: darken($container-bg, 5%);
+  padding: 15px;
+  border-radius: 8px;
+
+  .numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .numpad-button {
+    font-family: $display-font;
+    font-size: 1.5em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: $button-bg;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: darken($button-bg, 10%);
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background-color: $button-active;
+    }
+
+    &.confirm {
+      width: 100%;
+      background-color: $primary-color;
+      color: white;
+      font-family: $main-font;
+      font-size: 1.2em;
+      padding: 15px;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+}

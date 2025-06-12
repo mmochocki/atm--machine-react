@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+.operation-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .atm-button {
+    @include button-base;
+    flex: 1;
+    max-width: 150px;
+
+    &.active {
+      transform: scale(0.95);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &.deposit {
+      background-color: $primary-color;
+      &:hover { background-color: darken($primary-color, 5%); }
+    }
+
+    &.withdraw {
+      background-color: $danger-color;
+      &:hover { background-color: darken($danger-color, 5%); }
+    }
+  }
+}

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import Display from './components/Display';
+import OperationButtons from './components/OperationButtons';
+import Numpad from './components/Numpad';
+import { getStoredBalance, setStoredBalance } from './utils/localStorage';
 import './App.scss';
 
 function App() {
-  const [balance, setBalance] = useState(1000); // Initial account balance: 1000 PLN
+  const [balance, setBalance] = useState(getStoredBalance);
   const [amount, setAmount] = useState('');
   const [activeOperation, setActiveOperation] = useState(null); // 'deposit' or 'withdraw'
 
@@ -25,14 +29,14 @@ function App() {
     if (numAmount > 0) {
       if (activeOperation === 'withdraw') {
         if (numAmount <= balance) {
-          setBalance(prev => prev - numAmount);
+          setBalance(prev => setStoredBalance(prev - numAmount));
           setAmount('');
           setActiveOperation(null);
         } else {
           alert('Insufficient funds!');
         }
       } else if (activeOperation === 'deposit') {
-        setBalance(prev => prev + numAmount);
+        setBalance(prev => setStoredBalance(prev + numAmount));
         setAmount('');
         setActiveOperation(null);
       }
@@ -46,55 +50,24 @@ function App() {
 
   return (
     <div className="atm-container">
-      <div className="display">
-        <h2>Account Balance:</h2>
-        <div className="balance">{balance.toFixed(2)} PLN</div>
-        {activeOperation && (
-          <div className="input-amount">
-            {activeOperation === 'withdraw' ? 'Withdraw amount:' : 'Deposit amount:'}
-            <div className="amount-display">{amount || '0.00'} PLN</div>
-          </div>
-        )}
-      </div>
+      <Display
+        balance={balance}
+        activeOperation={activeOperation}
+        amount={amount}
+      />
 
-      <div className="operation-buttons">
-        <button
-          className={`atm-button deposit ${activeOperation === 'deposit' ? 'active' : ''}`}
-          onClick={() => handleOperationClick('deposit')}
-        >
-          Deposit
-        </button>
-        <button
-          className={`atm-button withdraw ${activeOperation === 'withdraw' ? 'active' : ''}`}
-          onClick={() => handleOperationClick('withdraw')}
-        >
-          Withdraw
-        </button>
-      </div>
+      <OperationButtons
+        activeOperation={activeOperation}
+        onOperationClick={handleOperationClick}
+      />
 
       {activeOperation && (
-        <div className="numpad">
-          <div className="numpad-grid">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-              <button
-                key={num}
-                className="numpad-button"
-                onClick={() => handleNumberClick(num)}
-              >
-                {num}
-              </button>
-            ))}
-            <button className="numpad-button" onClick={() => handleClear()}>C</button>
-            <button className="numpad-button" onClick={() => handleNumberClick(0)}>0</button>
-            <button className="numpad-button" onClick={() => handleDelete()}>←</button>
-          </div>
-          <button
-            className="numpad-button confirm"
-            onClick={handleConfirm}
-          >
-            Confirm
-          </button>
-        </div>
+        <Numpad
+          onNumberClick={handleNumberClick}
+          onClear={handleClear}
+          onDelete={handleDelete}
+          onConfirm={handleConfirm}
+        />
       )}
     </div>
   );
