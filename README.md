@@ -20,3 +20,6 @@ added LocalStorage functionality for storage balance data
 npm install
 npm start
 ```
+
+## Preview
+![ATM Screenshot](/public/atm.jpg)
