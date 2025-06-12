@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+.display {
+  background-color: $display-bg;
+  color: $display-text;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  h2 {
+    font-family: $main-font;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .balance {
+    font-size: 2.5rem;
+    font-family: $display-font;
+    margin-top: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(255, 255, 195, 0.5);
+  }
+
+  .input-amount {
+    margin-top: 15px;
+    font-size: 1.1em;
+
+    .amount-display {
+      font-family: $display-font;
+      font-size: 1.8em;
+      margin-top: 5px;
+      font-weight: 700;
+    }
+  }
+}
